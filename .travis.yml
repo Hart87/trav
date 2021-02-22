@@ -1,5 +1,8 @@
 language: go
 
+service:
+  - docker
+
 go:
   - 1.x
 
@@ -8,3 +11,11 @@ before_install:
 
 script:
   - make lint test
+  - docker build -t JHart87/travGo .
+
+
+deploy:
+  provider: script
+  script: bash .docker_push
+  on:
+    branch: master
